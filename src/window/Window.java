@@ -1,19 +1,12 @@
 package window;
 
-import util.MouseHandler;
 import window.elements.Canvas;
 import window.elements.DrawingSpace;
 import window.elements.SideBar;
 
 import javax.swing.*;
-import javax.swing.event.MenuKeyEvent;
-import javax.swing.event.MenuKeyListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -57,6 +50,7 @@ public class Window extends JFrame {
         JMenuItem openItem = new JMenuItem("Open");
         fileMenu.add(openItem);
         JMenuItem saveItem = new JMenuItem("Save");
+        saveItem.addActionListener(e -> DrawingSpace.writeImage("test"));
         fileMenu.add(saveItem);
         return fileMenu;
     }
@@ -65,9 +59,7 @@ public class Window extends JFrame {
         JMenu toolsMenu = new JMenu("Tools");
         JCheckBoxMenuItem gridItem = new JCheckBoxMenuItem("Grid");
         gridItem.setMnemonic(KeyEvent.VK_G);
-        gridItem.addActionListener(e -> {
-            DrawingSpace.toggleGrid(gridItem.getState());
-        });
+        gridItem.addActionListener(e -> DrawingSpace.toggleGrid(gridItem.getState()));
         toolsMenu.add(gridItem);
         return toolsMenu;
     }
