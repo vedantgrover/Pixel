@@ -64,6 +64,10 @@ public class DrawingSpace extends JPanel implements Runnable {
         }
     }
 
+    private void update() {
+        currentColor = ColorPicker.getCurrentColor();
+    }
+
     public Dimension getDrawingSpaceSize() {
         return this.getSize();
     }

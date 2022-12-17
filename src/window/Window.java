@@ -3,6 +3,7 @@ package window;
 import util.MouseHandler;
 import window.elements.Canvas;
 import window.elements.DrawingSpace;
+import window.elements.SideBar;
 
 import javax.swing.*;
 import javax.swing.event.MenuKeyEvent;
@@ -31,6 +32,7 @@ public class Window extends JFrame {
 
         this.setJMenuBar(createMenuBar());
         this.add(new Canvas());
+        this.add(new SideBar());
 
         this.pack();
 
