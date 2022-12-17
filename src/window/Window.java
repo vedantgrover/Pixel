@@ -1,5 +1,6 @@
 package window;
 
+import util.ImageHandler;
 import util.MouseHandler;
 import window.elements.Canvas;
 import window.elements.DrawingSpace;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -52,11 +54,16 @@ public class Window extends JFrame {
 
     private JMenu createFileMenu() {
         JMenu fileMenu = new JMenu("File");
-        JMenuItem newItem = new JMenuItem("New");
-        fileMenu.add(newItem);
-        JMenuItem openItem = new JMenuItem("Open");
-        fileMenu.add(openItem);
+
         JMenuItem saveItem = new JMenuItem("Save");
+        saveItem.addActionListener(e -> {
+            try {
+                ImageHandler imageHandler = new ImageHandler(DrawingSpace.getImage());
+                imageHandler.writeImage();
+            } catch (IOException err) {
+                System.err.println(err);
+            }
+        });
         fileMenu.add(saveItem);
         return fileMenu;
     }

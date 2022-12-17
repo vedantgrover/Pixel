@@ -2,9 +2,12 @@ package window.elements;
 
 import util.MouseHandler;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class DrawingSpace extends JPanel implements Runnable {
@@ -12,8 +15,8 @@ public class DrawingSpace extends JPanel implements Runnable {
     private static final Color[][] colors = new Color[16][16];
     // Settings
     private static boolean grid = false;
-    private Color currentColor = Color.BLACK;
     private final Thread drawingThread = new Thread(this);
+    private final Color currentColor = Color.BLACK;
 
     public DrawingSpace(int canvasHeight) {
         this.setBackground(Color.GRAY);
@@ -51,20 +54,14 @@ public class DrawingSpace extends JPanel implements Runnable {
             lastTime = currentTime;
 
             if (delta >= 1) {
-                update();
                 repaint();
                 delta--;
             }
 
             if (timer >= 1000000000) {
-                //System.out.println("FPS: " + drawCount);
                 timer = 0;
             }
         }
-    }
-
-    private void update() {
-        currentColor = ColorPicker.getCurrentColor();
     }
 
     @Override
@@ -94,13 +91,26 @@ public class DrawingSpace extends JPanel implements Runnable {
         return currentColor;
     }
 
-    public void setCurrentColor(Color newColor) {
-        currentColor = newColor;
+    public void resetDrawingBoard() {
+        for (Color[] color : colors) {
+            Arrays.fill(color, Color.WHITE);
+        }
     }
 
-    public void resetDrawingBoard() {
-        for (int row = 0; row < colors.length; row++) {
-            Arrays.fill(colors[row], Color.WHITE);
+    public static void writeImage(String name) {
+        String path = "res/images/" + name + ".png";
+        BufferedImage image = new BufferedImage(colors.length, colors[0].length, BufferedImage.TYPE_INT_RGB);
+        for (int x = 0; x < colors.length; x++) {
+            for (int y = 0; y < colors[x].length; y++) {
+                image.setRGB(x, y, colors[x][y].getRGB());
+            }
+        }
+
+        File ImageFile = new File(path);
+        try {
+            ImageIO.write(image, "png", ImageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
