@@ -33,8 +33,12 @@ public class ColorPicker extends JPanel implements Runnable {
         JButton submitButton = new JButton("Change Color");
         submitButton.setBounds((this.getWidth() / 2) - 50, 500, 60, 10);
         submitButton.addActionListener(e -> {
-            System.out.println(rValue.getText() + " : " + gValue.getText() + " : " + bValue.getText());
-            currentColor = new Color(Integer.parseInt(rValue.getText()), Integer.parseInt(gValue.getText()), Integer.parseInt(bValue.getText()));
+            if ((Integer.parseInt(rValue.getText()) <= 255 && Integer.parseInt(rValue.getText()) >= 0) && (Integer.parseInt(gValue.getText()) <= 255 && Integer.parseInt(gValue.getText()) >= 0) && (Integer.parseInt(bValue.getText()) <= 255 && Integer.parseInt(bValue.getText()) >= 0)) {
+                System.out.println(rValue.getText() + " : " + gValue.getText() + " : " + bValue.getText());
+                currentColor = new Color(Integer.parseInt(rValue.getText()), Integer.parseInt(gValue.getText()), Integer.parseInt(bValue.getText()));
+            } else {
+                JOptionPane.showMessageDialog(null, this, "Invalid RGB Codes", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
         this.add(submitButton);
 
