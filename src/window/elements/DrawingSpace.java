@@ -33,6 +33,10 @@ public class DrawingSpace extends JPanel implements Runnable {
         grid = newGrid;
     }
 
+    public static Color[][] getImage() {
+        return colors;
+    }
+
     @Override
     public void run() {
         int FPS = 60;
