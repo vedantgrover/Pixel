@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class ColorPicker extends JPanel implements Runnable {
 
-    private static Color currentColor = new Color(0, 0, 0);
+    private static Color currentColor = null;
 
     private final Thread colorPickerThread;
 
@@ -32,19 +32,25 @@ public class ColorPicker extends JPanel implements Runnable {
 
         JButton submitButton = new JButton("Change Color");
         submitButton.setBounds((this.getWidth() / 2) - 50, 500, 60, 10);
+        submitButton.addActionListener(e -> {
+            System.out.println(rValue.getText() + " : " + gValue.getText() + " : " + bValue.getText());
+            currentColor = new Color(Integer.parseInt(rValue.getText()), Integer.parseInt(gValue.getText()), Integer.parseInt(bValue.getText()));
+        });
         this.add(submitButton);
-    }
 
-    public void setCurrentColor(int r, int g, int b) {
-        currentColor = new Color(r, g, b);
-    }
-
-    public void setCurrentColor(Color color) {
-        currentColor = color;
+        colorPickerThread.start();
     }
 
     public static Color getCurrentColor() {
         return currentColor;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g.setColor(getCurrentColor());
+        g.fillRect((this.getWidth() / 2) - 50, 75, 100, 100);
     }
 
     @Override
@@ -73,16 +79,5 @@ public class ColorPicker extends JPanel implements Runnable {
                 timer = 0;
             }
         }
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        g.setColor(Color.WHITE);
-        g.drawRect((this.getWidth() / 2) - 50, 75, 100, 100);
-
-        g.setColor(currentColor);
-        g.fillRect((this.getWidth() / 2) - 50, 75, 100, 100);
     }
 }
