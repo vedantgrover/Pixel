@@ -9,19 +9,17 @@ import java.util.Arrays;
 
 public class DrawingSpace extends JPanel implements Runnable {
 
-    private static Color[][] colors = new Color[16][16];
+    private static final Color[][] colors = new Color[16][16];
     // Settings
     private static boolean grid = false;
     private Color currentColor = Color.BLACK;
     private final Thread drawingThread = new Thread(this);
 
-    private final MouseHandler mouseHandler;
-
     public DrawingSpace(int canvasHeight) {
         this.setBackground(Color.GRAY);
         this.setPreferredSize(new Dimension(canvasHeight / 2, canvasHeight / 2));
 
-        this.mouseHandler = new MouseHandler(this);
+        MouseHandler mouseHandler = new MouseHandler(this);
         this.addMouseListener(mouseHandler);
         resetDrawingBoard();
 
@@ -53,6 +51,7 @@ public class DrawingSpace extends JPanel implements Runnable {
             lastTime = currentTime;
 
             if (delta >= 1) {
+                update();
                 repaint();
                 delta--;
             }
@@ -64,8 +63,8 @@ public class DrawingSpace extends JPanel implements Runnable {
         }
     }
 
-    public Dimension getDrawingSpaceSize() {
-        return this.getSize();
+    private void update() {
+        currentColor = ColorPicker.getCurrentColor();
     }
 
     @Override
