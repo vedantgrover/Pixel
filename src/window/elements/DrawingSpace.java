@@ -2,12 +2,8 @@ package window.elements;
 
 import util.MouseHandler;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 public class DrawingSpace extends JPanel implements Runnable {
@@ -94,23 +90,6 @@ public class DrawingSpace extends JPanel implements Runnable {
     public void resetDrawingBoard() {
         for (Color[] color : colors) {
             Arrays.fill(color, Color.WHITE);
-        }
-    }
-
-    public static void writeImage(String name) {
-        String path = "res/images/" + name + ".png";
-        BufferedImage image = new BufferedImage(colors.length, colors[0].length, BufferedImage.TYPE_INT_RGB);
-        for (int x = 0; x < colors.length; x++) {
-            for (int y = 0; y < colors[x].length; y++) {
-                image.setRGB(x, y, colors[x][y].getRGB());
-            }
-        }
-
-        File ImageFile = new File(path);
-        try {
-            ImageIO.write(image, "png", ImageFile);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

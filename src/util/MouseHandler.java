@@ -2,14 +2,12 @@ package util;
 
 import window.elements.DrawingSpace;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
 
     private final DrawingSpace dp;
-    private Point latestPoint;
 
     public MouseHandler(DrawingSpace dp) {
         this.dp = dp;
@@ -41,9 +39,5 @@ public class MouseHandler implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    public Point getLatestPoint() {
-        return latestPoint;
     }
 }

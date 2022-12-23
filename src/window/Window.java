@@ -1,21 +1,14 @@
 package window;
 
 import util.ImageHandler;
-import util.MouseHandler;
 import window.elements.Canvas;
 import window.elements.DrawingSpace;
 import window.elements.SideBar;
 
 import javax.swing.*;
-import javax.swing.event.MenuKeyEvent;
-import javax.swing.event.MenuKeyListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
